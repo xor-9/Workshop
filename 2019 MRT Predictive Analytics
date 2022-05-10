@@ -1,0 +1,316 @@
+/*進站訓練樣本*/
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量
+\2018~20190301.xlsx"
+out=_2018in
+dbms=excel
+replace;
+sheet="進站資料";
+GETNAMES=YES;
+run;
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\201703後.xlsx"
+out=_2017in
+dbms=excel
+replace;
+sheet="進站資料";
+GETNAMES=YES;
+run;
+/*出站訓練樣本*/
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量
+\2018~20190301.xlsx"
+out=_2018out
+dbms=excel
+replace;
+sheet="出站資料";
+GETNAMES=YES;
+run;
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\201703後.xlsx"
+out=_2017out
+dbms=excel
+replace;
+sheet="出站資料";
+GETNAMES=YES;
+run;
+data _2017in;set _2017in;week=weekday(date);label week="星期" date="日期
+" ;run;
+data _2018in;set _2018in;week=weekday(date);label week="星期" date="日期
+" ;run;
+data _2017out;set _2017out;week=weekday(date);label week="星期" date="
+日期" ;run;
+data _2018out;set _2018out;week=weekday(date);label week="星期" date="
+日期" ;run;
+data trainIN;
+set _2017in _2018in;
+run;
+data trainOUT;
+set _2017out _2018out;
+run;
+/*顏色代碼 CXF8766D CXC49A00 CX53B400 CX00C094 CX00B6EB CXA58AFF
+CXFB61D7)*/
+proc sort data=trainin;
+by week;
+run;
+ods graphics on/noborder;
+proc sgplot data=trainIN noborder; /*******進站散佈圖******/
+styleattrs datacontrastcolors=( CX00B6EB CX53B400 CX53B400 CX53B400
+CX53B400 CXA58AFF CXF8766D) datasymbols=(circlefilled);
+scatter y=total x=date /group=week markerattrs=(size=5) ;
+xaxis grid display=(noline) ;
+yaxis grid display=(noline);
+keylegend / position=right across=1 noopaque noborder;
+label total="總進站人數";
+title j=c h=14pt '中和新蘆線';
+run;
+proc sort data=trainout;
+by week;
+run;
+ods graphics on/noborder;
+proc sgplot data=trainout noborder; /*******出站散佈圖******/
+styleattrs datacontrastcolors=( CX00B6EB CX53B400 CX53B400 CX53B400
+CX53B400 CXA58AFF CXF8766D) datasymbols=(circlefilled);
+scatter y=total x=date /group=week markerattrs=(size=5) ;
+xaxis grid display=(noline) ;
+yaxis grid display=(noline);
+keylegend / position=right across=1 noopaque noborder;
+label total="總出站人數";
+title j=c h=14pt '中和新蘆線';
+run;
+/*進站訓練樣本*/
+proc import /***2015~2016702*****/
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\2015.xlsx"
+out=_2015in
+dbms=excel
+replace;
+sheet="in";
+GETNAMES=YES;
+run;
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\2016~201702.xlsx"
+out=_2016in
+dbms=excel
+replace;
+sheet="in";
+GETNAMES=YES;
+run;
+/*出站訓練樣本*/
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\2015.xlsx"
+out=_2015out
+dbms=excel
+replace;
+sheet="out";
+GETNAMES=YES;
+run;
+proc import
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\2016~201702.xlsx"
+out=_2016out
+dbms=excel
+replace;
+sheet="out";
+GETNAMES=YES;
+run;
+data _2015in;set _2015in;week=weekday(date);label week="星期" date="日期
+" ;run;
+data _2016in;set _2016in;week=weekday(date);label week="星期" date="日期
+" ;run;
+data _2015out;set _2015out;week=weekday(date);label week="星期" date="
+日期" ;run;
+data _2016out;set _2016out;week=weekday(date);label week="星期" date="
+日期" ;run;
+data trainIN;
+set _2015in _2016in;
+run;
+data trainOUT;
+set _2015out _2016out;
+run;
+/*顏色代碼 CXF8766D CXC49A00 CX53B400 CX00C094 CX00B6EB CXA58AFF
+CXFB61D7)*/
+proc sort data=trainin;
+by week;
+run;
+ods graphics on/noborder;
+proc sgplot data=trainIN noborder; /*******進站散佈圖******/
+styleattrs datacontrastcolors=( CX00B6EB CX53B400 CX53B400 CX53B400
+CX53B400 CXA58AFF CXF8766D) datasymbols=(circlefilled);
+scatter y=total x=date /group=week markerattrs=(size=5) ;
+xaxis grid display=(noline) ;
+yaxis grid display=(noline);
+keylegend / position=right across=1 noopaque noborder;
+label total="總進站人數";
+title j=c h=14pt '中和新蘆線';
+run;
+proc sort data=trainout;
+by week;
+run;
+ods graphics on/noborder;
+proc sgplot data=trainout noborder; /*******出站散佈圖******/
+styleattrs datacontrastcolors=( CX00B6EB CX53B400 CX53B400 CX53B400
+CX53B400 CXA58AFF CXF8766D) datasymbols=(circlefilled);
+scatter y=total x=date /group=week markerattrs=(size=5) ;
+xaxis grid display=(noline) ;
+yaxis grid display=(noline);
+keylegend / position=right across=1 noopaque noborder;
+label total="總出站人數";
+title j=c h=14pt '中和新蘆線';
+run;
+data trainin_2; /*合併進出站 並取加總*/
+set trainin;
+drop date week;
+run;
+%macro rename(n);
+data trainout_2;
+set trainout;
+drop week;
+%do n=1 %to 107 %by 1;
+rename _col&n=a&n;
+%end;
+run;
+%mend;
+%rename;
+%macro train(n);
+data train;
+merge trainin_2 trainout_2;
+%do n=1 %to 107 %by 1;
+_col&n=sum(_col&n , a&n);
+label ;
+%end;
+drop a1-a107;
+run;
+%mend;
+%train;
+data train;
+set train;
+week=weekday(_col0);
+label week='星期';
+label _col0="日期";
+run;
+proc sort data=train;
+by week;
+run;
+/***中和新蘆線 時間數列 (進站)***/
+data LC;
+set trainin;
+run;
+proc sort data=lc;
+by date;
+run;
+proc arima data=lc ;
+identify var=total nlag=36 ;
+label total="總進站人數";
+run;
+proc arima data=lc ;
+identify var=total(1,357) nlag=36 ;
+label total="總進站人數";
+run;
+proc arima data=lc; /* */
+identify var=total (1,357) nlag=36;
+Estimate q=(1)noconstant printall plot method=ml;
+Forecast lead=243 out=pred2020;
+run;
+proc import /******2019 測試樣本
+******/
+DATAFILE="C:\Users\user\Documents\期末報告\中和新蘆總量\201903後.xlsx"
+out=_2019in
+dbms=excel
+replace;
+sheet="進站資料";
+GETNAMES=YES;
+run;
+data _2019in;
+set _2019in;
+week=weekday(_col0);
+label week='星期';
+label _col0="日期";
+if _col0=. then delete;
+run;
+data out;
+set out;
+RUN;
+data out;
+set out;
+if _n_<718 then delete;
+drop total residual std l95 u95;
+run;
+data aaa;
+merge _2019in out;
+week=weekday(_col0);
+r=forecast-total;
+keep _col0 total FORECAST MAE rmse;
+MAE=round(abs(r),1);
+RMSE=r*r;
+if MAE=. then delete;
+run;
+proc means data=aaa mean; /*** 計算誤差 MAE RMSE
+***/
+var MAE RMSE;
+label MAE='平均絕對誤差';
+run;
+ods graphics on/noborder;
+proc sgplot data=aaa noborder; /*********預測與實際
+比較 時間數列圖 *******/
+series x=_col0 y=forecast ;
+series x=_col0 y=total;
+keylegend / across=1 noopaque noborder;
+refline 500000 / lineattrs=(pattern=2 color=gray thickness=0.3%)
+axis=y;
+label total="實際總進站人數" FORECAST="預測總進站人數";
+run;
+data _2019in;
+set _2019in;
+rename _col0=date;
+run;
+data lc;
+set lc _2019out;
+run;
+proc arima data=lc; /* */
+identify var=total (1,357) nlag=36;
+Estimate q=(1)noconstant printall plot method=ml;
+Forecast lead=714 out=pred2020;
+run;
+data pred2020;
+set pred2020;
+if _n_<961 then delete;
+day=_n_;
+run;
+data pred2020 ;
+set pred2020;
+day=_n_;
+run;
+proc sgplot data=pred2020 noborder; /*預測2020********/
+series x=day y=forecast ;
+keylegend / across=1 noopaque noborder;
+refline 600000 / lineattrs=(pattern=2 color=gray thickness=0.3%)
+axis=y ;
+label FORECAST="預測總進站人數" day="2020日期";
+xaxis values=(1 to 357 by 30);
+yaxis values=(300000 to 700000 by 100000);
+title j=c h=14pt '中和新蘆線';
+run;
+/*顏色代碼 CXF8766D CXC49A00 CX53B400 CX00C094 CX00B6EB CXA58AFF
+CXFB61D7)*/
+ods graphics on/noborder;
+proc sgplot data=trainIN noborder;
+styleattrs datacontrastcolors=( CXF8766D CXC49A00 CX53B400 CX00C094
+CX00B6EB CXA58AFF CXFB61D7) datasymbols=(circlefilled);
+scatter y=_COL14 x=_col0 /group=week markerattrs=(size=5) ;
+xaxis grid display=(noline) ;
+yaxis grid display=(noline);
+keylegend / position=right across=1 noopaque noborder;
+run;
+%macro scatterIN(n);
+%do n=1 %to 107 %by 1;
+ods graphics on/noborder;
+proc sgplot data=trainIN noborder;
+styleattrs datacontrastcolors=( CXF8766D CXC49A00 CX53B400 CX00C094
+CX00B6EB CXA58AFF CXFB61D7) datasymbols=(circlefilled);
+scatter y=_COL&n x=_col0 /group=week markerattrs=(size=5) ;
+xaxis grid display=(noline) ;
+yaxis grid display=(noline);
+keylegend / position=right across=1 noopaque noborder;
+run;
+%end;
+%mend;
+%scatterIN;
